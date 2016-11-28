@@ -1,0 +1,6 @@
+sidebarLayout(
+  sidebarPanel(
+  ),
+  mainPanel(
+  )
+)
