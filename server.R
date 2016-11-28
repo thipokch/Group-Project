@@ -11,7 +11,6 @@ library(shiny)
 
 # Define server logic required to draw a histogram
 shinyServer(function(input, output, session) {
-  
   source("scripts/chart1.R",  local = TRUE)$value
   source("scripts/chart2.R",  local = TRUE)$value
   source("scripts/chart3.R",  local = TRUE)$value
