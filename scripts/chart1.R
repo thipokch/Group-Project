@@ -7,12 +7,11 @@ my.data <- read.csv('data/recent-grads.csv')
 
 by.major <- my.data[,2:9]
 
-updateSelectizeInput(session, 'Selection_Chart1', choices = by.major$Major, selected = 'ACCOUNTING') 
-
+text.select.major('Selection_Chart1', '1100')
 
 buildPie <- function(df, major) { 
   
-  selected <- df[df$Major == major,]
+  selected <- filter(df, Major_code %in% major)
   
   colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
   
@@ -36,8 +35,7 @@ buildPie <- function(df, major) {
   
 }
 
-output$chart1 <- renderPlot({
-  p <- buildPie(by.major, input$Selection_Chart1)
-  print(p)
+output$chart1 <- renderPlotly({
+  buildPie(by.major, input$Selection_Chart1)
 })
 
