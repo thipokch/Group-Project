@@ -1,15 +1,12 @@
 library(shiny)
 library(dplyr)
-library(tidyverse)
 library(plotly)
 
 my.data <- read.csv('data/recent-grads.csv')
 
 my.data <- my.data[,2:9]
 
-text.select.major('Selection_Chart1', '1100')
-
-# updateSelectizeInput(session, 'Selection_Chart1', choices = by.major$Major, selected = 'ACCOUNTING') 
+updateSelectizeInput(session, 'Selection_Chart1', choices = my.data$Major, selected = 'ACCOUNTING') 
 
 buildBarGraph <- function(df, major) {
   
