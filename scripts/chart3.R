@@ -1,9 +1,5 @@
-library(shiny)
 library(dplyr)
 library(tidyr)
-library(plotly)
-library(ggplot2)
-library(shinyjs)
 
 df3 <- read.csv('data/all-ages.csv')
 
@@ -11,11 +7,7 @@ df3 <- read.csv('data/all-ages.csv')
 #                    "Employed_full_time_year_round", "Unemployed", "Unemployment_rate",
 #                    "P50", "P25", "P75") 
 
-major_index_list <- structure(as.list.data.frame(df3$Major_code),
-                       names = as.character(df3$Major))
-
-updateSelectizeInput(session, 'C3_Major_Selected', choices = 
-                       major_index_list, selected = '1100') 
+text.select.major('C3.major.selected', '1100')
 
 percentileFormat <- function(df, code){
   df %>%
@@ -38,21 +30,21 @@ distributionGraph <- function(df, code){
     theme(legend.position = "bottom", legend.box = "horizontal")
 }
 
-output$chart3 <- renderPlot({
-  print(
-      distributionGraph(df3, input$C3_Major_Selected)
+output$chart3 <- renderPlotly({
+  ggplotly(
+      distributionGraph(df3, input$C3.major.selected)
   )
 })
 
-stackGraph <- function(df, code){
-  df %>%
-    arrange(P25th) %>%
-    mutate(P25th_50 = Median - P25th, Median_75 = P75th-Median) %>%
-    plot_ly(x = ~Major, y = ~P25th, type = 'bar', name = '25th Percentile') %>%
-    add_trace(y = ~P25th_50, name = '50th Percentile') %>%
-    add_trace(y = ~Median_75, name = '75th Percentile') %>%
-    layout(yaxis = list(title = 'Count'), barmode = 'stack')
-}
+# stackGraph <- function(df, code){
+#   df %>%
+#     arrange(P25th) %>%
+#     mutate(P25th_50 = Median - P25th, Median_75 = P75th-Median) %>%
+#     plot_ly(x = ~Major, y = ~P25th, type = 'bar', name = '25th Percentile') %>%
+#     add_trace(y = ~P25th_50, name = '50th Percentile') %>%
+#     add_trace(y = ~Median_75, name = '75th Percentile') %>%
+#     layout(yaxis = list(title = 'Count'), barmode = 'stack')
+# }
 
 # ggplotly(distributionGraph(df3, c(1100,1501, 1101)))
 # ggplotly(stackGraph(df3, c(1100,1501, 1101)))
