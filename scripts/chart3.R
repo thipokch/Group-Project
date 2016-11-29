@@ -2,9 +2,14 @@ library(shiny)
 library(dplyr)
 library(tidyr)
 library(plotly)
+library(ggplot2)
 library(shinyjs)
 
 df3 <- read.csv('data/all-ages.csv')
+
+# colnames(df3) <- c("Major_code", "Major", "Major_category", "Total", "Employed", 
+#                    "Employed_full_time_year_round", "Unemployed", "Unemployment_rate",
+#                    "P50", "P25", "P75") 
 
 major_index_list <- structure(as.list.data.frame(df3$Major_code),
                        names = as.character(df3$Major))
@@ -29,13 +34,14 @@ distributionGraph <- function(df, code){
     percentileFormat(code) %>%
     ggplot(aes(x = Salaries, y = percentage, color = Major)) +
     geom_point(size = 3) +
-    geom_smooth(method = 'loess')
+    geom_smooth(method = 'loess') +
+    theme(legend.position = "bottom", legend.box = "horizontal")
 }
 
 output$chart3 <- renderPlot({
-  p <- ggplotly(distributionGraph(df3, input$C3_Major_Selected))
-  print(p)
-  
+  print(
+      distributionGraph(df3, input$C3_Major_Selected)
+  )
 })
 
 stackGraph <- function(df, code){
