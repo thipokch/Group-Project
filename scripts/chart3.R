@@ -25,15 +25,16 @@ distributionGraph <- function(df, code){
   df %>%
     percentileFormat(code) %>%
     ggplot(aes(x = Salaries, y = percentage, color = Major)) +
-    geom_point(size = 3) +
     geom_smooth(method = 'loess') +
-    theme(legend.position = "bottom", legend.box = "horizontal")
+    geom_point(size = 3) 
+    
 }
 
 output$chart3 <- renderPlotly({
   ggplotly(
       distributionGraph(df3, input$C3.major.selected)
-  )
+  ) %>%
+    layout(legend = list(orientation = 'v'))
 })
 
 # stackGraph <- function(df, code){

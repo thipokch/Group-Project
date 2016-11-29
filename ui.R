@@ -8,6 +8,9 @@
 #
 
 library(shiny)
+library(plotly)
+
+source("ui/ui_library.R",  local = TRUE)$value
 
 # Define UI for application that draws a histogram
 shinyUI(navbarPage("My Major",
@@ -20,13 +23,13 @@ shinyUI(navbarPage("My Major",
             )
    ),
    tabPanel("Popularity",
-            source("ui/chart1.R",  local = TRUE)$value
+            source("ui/ui_chart1.R",  local = TRUE)$value
    ),
    tabPanel("Statistics",
-            source("ui/chart2.R",  local = TRUE)$value
+            source("ui/ui_chart2.R",  local = TRUE)$value
    ),
    tabPanel("Earning",
-            source("ui/chart3.R",  local = TRUE)$value
+            source("ui/ui_chart3.R",  local = TRUE)$value
    )
    )
 )
