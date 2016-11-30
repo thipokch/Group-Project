@@ -6,12 +6,16 @@ my.data <- read.csv('data/recent-grads.csv')
 
 my.data <- my.data[,2:9]
 
-updateSelectizeInput(session, 'Selection_Chart1', choices = my.data$Major, selected = 'ACCOUNTING') 
+# updateSelectizeInput(session, 'Selection_Chart1', choices = my.data$Major, selected = 'ACCOUNTING') 
+group.select.major(my.data, 'Agriculture & Natural Resources')
 
 buildBarGraph <- function(df, major) {
   
-  selected.category <- df[df$Major == major, 3]
-  df <- filter(df, Major_category == selected.category)
+  # selected.category <- df[df$Major == major, 3]
+  # df <- filter(df, Major_category == selected.category)
+  df <- filter(df, Major_category %in% major)
+  
+  
   
   p <- plot_ly(data = df, x = ~Major, y = ~Total, name = 'Breakdown of Major Category', type = "bar")
   
@@ -22,7 +26,8 @@ buildBarGraph <- function(df, major) {
 
 buildPie <- function(df, major) { 
   
-  selected <- filter(df, Major == major)
+  #selected <- filter(df, Major == major)
+  selected <- filter(df, Major_code %in% major)
   
   colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
   
@@ -48,10 +53,12 @@ buildPie <- function(df, major) {
 
 
 output$chart1 <- renderPlotly({
-  buildPie(my.data, input$Selection_Chart1)
+  #buildPie(my.data, input$Selection_Chart1)
+  buildPie(my.data, input$Major.Selected)
 })
 
 output$barChart1 <- renderPlotly({
-  buildBarGraph(my.data, input$Selection_Chart1)
+  #buildBarGraph(my.data, input$Selection_Chart1)
+  buildBarGraph(my.data, input$Category.Selected)
 })
 

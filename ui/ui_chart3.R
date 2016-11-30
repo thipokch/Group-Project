@@ -1,6 +1,7 @@
 verticalLayout(
   plotlyOutput("chart3"),
   wellPanel(
-    selectizeInput('C3.major.selected', 'Majors', choices = NULL, multiple = TRUE)
+    selectizeInput('Category.Selected', 'Majors', choices = NULL, multiple = FALSE),
+    selectizeInput('Major.Selected', 'Majors', choices = NULL, multiple = TRUE)
   )
 )
