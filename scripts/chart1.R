@@ -2,7 +2,7 @@ library(shiny)
 library(dplyr)
 library(plotly)
 
-my.data <- read.csv('data/recent-grads.csv')
+my.data <- read.csv('data/recent-grads.csv', stringsAsFactors = FALSE)
 
 my.data <- my.data[,2:9]
 
@@ -13,7 +13,15 @@ buildBarGraph <- function(df, major) {
   selected.category <- df[df$Major == major, 3]
   df <- filter(df, Major_category == selected.category)
   
-  p <- plot_ly(data = df, x = ~Major, y = ~Total, name = 'Breakdown of Major Category', type = "bar")
+  num_majors <- nrow(df)
+  colors <- vector(mode = "character", length = num_majors)
+  colors[1:num_majors] <- 'rgb(128,133,133)'
+  colors[match(major, df$Major)] <- 'rgb(144,103,167)' #purple
+  
+  p <- plot_ly(data = df, x = ~Major, y = ~Total, name = 'Breakdown of Major Category', type = "bar",
+               marker = list(color = colors)) %>%
+        layout(title = 'Breakdown of Major Category', xaxis = list(showticklabels = FALSE), 
+               yaxis = list(title = "Total Graduates"), autosize = FALSE, width = 600, height = 400)
   
   return(p)
   
