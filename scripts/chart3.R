@@ -3,7 +3,13 @@ library(tidyr)
 
 df3 <- read.csv('data/all-ages.csv')
 
-group.select.major(df3, 'Agriculture & Natural Resources')
+df <- df3
+default.category <- 'Agriculture & Natural Resources'
+select.category(df,'C3.Category.Selected', default.category)
+observe({
+  c3.df.filtered <- filter(df, Major_category %in% input$C3.Category.Selected)
+  text.select.major(df,'C3.Major.Selected', c3.df.filtered$Major_code)
+})
 
 percentileFormat <- function(df, code){
   df %>%
@@ -28,7 +34,7 @@ distributionGraph <- function(df, code){
 
 output$chart3 <- renderPlotly({
   ggplotly(
-      distributionGraph(df3, input$Major.Selected)
+      distributionGraph(df3, input$C3.Major.Selected)
   ) %>%
     layout(legend = list(orientation = 'v'))
 })

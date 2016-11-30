@@ -1,8 +1,7 @@
 sidebarLayout(
   sidebarPanel(
     #selectizeInput('Selection_Chart1', 'Majors', choices = NULL, multiple = TRUE)
-    selectizeInput('Category.Selected', 'Majors', choices = NULL, multiple = FALSE),
-    selectizeInput('Major.Selected', 'Majors', choices = NULL, multiple = TRUE)
+    major.panel()
   ),
   mainPanel(
     h3("Popularity"),

@@ -1,5 +1,3 @@
-df.all <- read.csv('data/all-ages.csv')
-
 select.category <- function(df, out.variable, default.selected) {
   category_index_list <- df %>%
     select(Major_category) %>%
@@ -21,11 +19,20 @@ text.select.major <- function(df, out.variable, default.selected) {
 }
 
 group.select.major <- function(df, default.category) {
-  df <- df.all
   select.category(df,'Category.Selected', default.category)
-  
-  observe({
+   observe({
     df.filtered <- filter(df, Major_category %in% input$Category.Selected)
     text.select.major(df,'Major.Selected', df.filtered$Major_code)
-  })
+   })
 }
+
+
+
+# observe({
+#   if(is.null(input$Major.Selected)) {
+#     group.select.major(df3, 'Agriculture & Natural Resources')
+#   } else {
+#     select.category(df,'Category.Selected', input$Category.Selected)
+#     text.select.major(df,'Major.Selected', input$Major.Selected)
+#   }
+# })

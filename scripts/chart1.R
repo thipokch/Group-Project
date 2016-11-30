@@ -6,39 +6,40 @@ my.data <- read.csv('data/recent-grads.csv', stringsAsFactors = FALSE)
 
 my.data <- my.data[,2:9]
 
-# updateSelectizeInput(session, 'Selection_Chart1', choices = my.data$Major, selected = 'ACCOUNTING') 
+# updateSelectizeInput(session, 'Selection_Chart1', choices = my.data$Major, selected = 'ACCOUNTING')
+#
 group.select.major(my.data, 'Agriculture & Natural Resources')
 
 buildBarGraph <- function(df, major) {
-  
+
   # selected.category <- df[df$Major == major, 3]
   # df <- filter(df, Major_category == selected.category)
   df <- filter(df, Major_category %in% major)
-  
-  
-  
+
+
+
   num_majors <- nrow(df)
   colors <- vector(mode = "character", length = num_majors)
   colors[1:num_majors] <- 'rgb(128,133,133)'
   colors[match(major, df$Major)] <- 'rgb(144,103,167)' #purple
-  
+
   p <- plot_ly(data = df, x = ~Major, y = ~Total, name = 'Breakdown of Major Category', type = "bar",
                marker = list(color = colors)) %>%
-        layout(title = 'Breakdown of Major Category', xaxis = list(showticklabels = FALSE), 
+        layout(title = 'Breakdown of Major Category', xaxis = list(showticklabels = FALSE),
                yaxis = list(title = "Total Graduates"), autosize = FALSE, width = 600, height = 400)
-  
+
   return(p)
-  
+
 }
 
 
-buildPie <- function(df, major) { 
-  
+buildPie <- function(df, major) {
+
   #selected <- filter(df, Major == major)
   selected <- filter(df, Major_code %in% major)
-  
+
   colors <- c('rgb(211,94,96)', 'rgb(114,147,203)')
-  
+
   label <- c("Women", "Men")
   totals <- c(selected$Women, selected$Men)
   df <- data.frame(label, totals)
@@ -56,7 +57,7 @@ buildPie <- function(df, major) {
             yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
 
   return(p)
-  
+
 }
 
 
