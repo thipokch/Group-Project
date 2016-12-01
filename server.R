@@ -7,7 +7,6 @@
 #    http://shiny.rstudio.com/
 #
 
-<<<<<<< HEAD
 library(shiny)
 library(plotly)
 
@@ -16,22 +15,7 @@ df.all <- read.csv('data/all-ages.csv')
 shinyServer(function(input, output, session) {
   source("scripts/library.R",  local = TRUE)$value
   source("scripts/chart1.R",  local = TRUE)$value
-  source("scripts/library.R",  local = TRUE)$value
   source("scripts/chart2.R",  local = TRUE)$value
-  source("scripts/library.R",  local = TRUE)$value
   source("scripts/chart3.R",  local = TRUE)$value
   
 })
-=======
-# library(shiny)
-#
-#
- # Define server logic required to draw a histogram
- shinyServer(function(input, output, session) {
-   source("scripts/chart1.R",  local = TRUE)$value
-   source("scripts/chart2.R",  local = TRUE)$value
-   source("scripts/chart3.R",  local = TRUE)$value
-
- })
-
->>>>>>> Started work on statistics charts and ui

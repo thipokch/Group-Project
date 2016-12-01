@@ -12,29 +12,25 @@ shinyUI(fluidPage(
     
     sidebarPanel(
       
-      # May need to alter it so that it works properly if no major category has been chosen
-#       selectInput('discipline', label = 'Major Category', choices = list("Any" = "", "Agriculture & Natural Resources" = "Agriculture & Natural Resources", "Arts" = "Arts", "Biology & Life Science" = "Biology & Life Science", "Business" = "Business", "Communications & Journalism" = "Communications & Journalism", "Computers & Mathematics" = "Computers & Mathematics", "Education" = "Education", "Engineering" = "Engineering", "Health" = "Health", "Humanities & Liberal Arts" = "Humanities & Liberal Arts", "Industrial Arts & Consumer Services" = "Industrial Arts & Consumer Services", "Interdisciplinary" = "Interdisciplinary", "Law & Public Policy" = "Law & Public Policy", "N/A (Less than a bachelors degree)" = "NA", "Physical Sciences
-# " = "Physical Sciences
-# ", "Psychology & Social Work
-# " = "Psychology & Social Work
-# ", "Social Science
-# " = "Social Science
-# ")),
       textInput('text', label = "Desired Major", value = "INFORMATION SCIENCES")
     ),
     
     mainPanel(
       # Employment rates (Full time vs. Part time vs. Unemployed)
-      plotlyOutput('pie')
+      plotlyOutput('pie'),
       
       # How good the jobs are (College degree necessary jobs, non - college degree, and low wage jobs)
-      # plotlyOutput('pie'),
-      # 
-      # # Employment rates for discipline
-      # plotlyOutput('pie'),
-      # 
-      # # Job quality of discipline
-      # plotlyOutput('pie')
+      plotlyOutput('pie2'),
+
+      # Average Employment rates for category
+      plotlyOutput('pie3'),
+
+      # Average Job quality for category
+      plotlyOutput('pie4'),
+      
+      # Pie charts for the averages of everyone surveyed
+      plotlyOutput('pie5'),
+      plotlyOutput('pie6')
     )
   ) 
 ))
