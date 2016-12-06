@@ -19,3 +19,4 @@ shinyServer(function(input, output, session) {
   source("scripts/chart3.R",  local = TRUE)$value
   
 })
+
