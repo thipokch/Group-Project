@@ -40,11 +40,11 @@ BuildEmployment <- function(dataset, chosen.major) {
                textinfo = 'label+percent',
                insidetextfont = list(color = '#FFFFFF'),
                hoverinfo = 'text',
-               text = ~paste(values, "people with a degree in", chosen.major, "are", titles),
+               text = ~paste(values, "graduates with this major are", titles),
                marker = list(colors = employment.colors,
                              line = list(color = '#FFFFFF', width = 1)),
                showlegend = FALSE) %>%
-    layout(title = ~paste("Employment Rates for", chosen.major),
+    layout(title = ~paste("Employment Rates for the Chosen Major"),
            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
   
@@ -70,11 +70,11 @@ BuildJobQuality <- function(dataset, chosen.major) {
                textinfo = 'label+percent',
                insidetextfont = list(color = '#FFFFFF'),
                hoverinfo = 'text',
-               text = ~paste(values, "people with a degree in", chosen.major, "work", titles),
+               text = ~paste(values, "graduates with this major work", titles),
                marker = list(colors = job.quality.colors,
                              line = list(color = '#FFFFFF', width = 1)),
                showlegend = FALSE) %>%
-    layout(title = ~paste("Job Quality for", chosen.major),
+    layout(title = ~paste("Job Quality for the Chosen Major"),
            xaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE),
            yaxis = list(showgrid = FALSE, zeroline = FALSE, showticklabels = FALSE))
   
