@@ -6,8 +6,6 @@ library(plotly)
 library(shinydashboard)
 
 shinyUI(fluidPage(
-
-  titlePanel("Employment Data and Job Quality Dashboard"),
   
   sidebarPanel(
     
@@ -20,13 +18,15 @@ shinyUI(fluidPage(
     p("For a selected major this dashboard illustrates the major's employment rates and job quality, as well as the employment rates and job quality for the discipline the major is in, and the overall rates for all of the majors in the data set."),
     p("In the employment data charts : A full time job is when the worker is employed 35+ hours a week, a full time job year round is someone employed 35+ hours a week and 50+ weeks in the year, and a part time job is employment less than 35 hours a week."),
     p("In the job quality charts : A college job is a job requiring a college degree (usually higher paying), while a non-college job does not require a college degree, and low wage jobs are usually service jobs."), 
-    p("Also by hovering over a pie chart section it will also tell you the number of people that the percentage equates to!")
+    p("Also by hovering over a pie chart section it will tell you the number of people that the percentage equates to!")
   ),
 
   mainPanel(
 
       fluidRow(
-
+            h3("Employment Data and Job Quality Dashboard"),
+            br(),
+            
             # Employment and Job Quaity for Major
 
             #Employment rates (Full time vs. Part time vs. Unemployed)
