@@ -1,18 +1,12 @@
-#
-# This is the user-interface definition of a Shiny web application. You can
-# run the application by clicking 'Run App' above.
-#
-# Find out more about building applications with Shiny here:
-# 
-#    http://shiny.rstudio.com/
-#
+# this creates the user-interface of our Shiny application
 
 library(shiny)
 library(plotly)
 
+# sets the source of the UI for individual pages
 source("ui/ui_library.R",  local = TRUE)$value
 
-# Define UI for application that draws a histogram
+# defines UI for our application, creates four tab panels
 shinyUI(navbarPage("My Major",
    tabPanel("Home",
             sidebarLayout(
@@ -25,7 +19,7 @@ shinyUI(navbarPage("My Major",
    tabPanel("Popularity",
             source("ui/ui_chart1.R",  local = TRUE)$value
    ),
-   tabPanel("Statistics",
+   tabPanel("Employment",
             source("ui/ui_chart2.R",  local = TRUE)$value
    ),
    tabPanel("Earning",
