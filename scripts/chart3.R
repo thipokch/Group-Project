@@ -1,16 +1,16 @@
 library(dplyr)
 library(tidyr)
+library(scales)
 
-df3 <- read.csv('data/all-ages.csv')
+df <- read.csv('data/all-ages.csv')
 
-df <- df3
-default.category <- 'Agriculture & Natural Resources'
-select.category(df,'C3.Category.Selected', default.category)
-observe({
-  c3.df.filtered <- filter(df, Major_category %in% input$C3.Category.Selected)
-  text.select.major(df,'C3.Major.Selected', c3.df.filtered$Major_code)
-})
+major_index_list <- structure(as.list.data.frame(df$Major_code),
+                              names = as.character(df$Major))
 
+# Update the group of selectionizedInput
+c3.group.select.major(df,'Agriculture & Natural Resources')
+
+# Formats data so it could be plotted in distributiongraph
 percentileFormat <- function(df, code){
   df %>%
     filter(Major_code %in% code) %>%
@@ -23,32 +23,19 @@ percentileFormat <- function(df, code){
     )
 }
 
+# Formats how the distribution graph should be displayed
 distributionGraph <- function(df, code){
   df %>%
     percentileFormat(code) %>%
-    ggplot(aes(x = Salaries, y = percentage, color = Major)) +
+    ggplot(aes(x = Salaries, y = percentage, color = Major, text = Major_code)) +
     geom_smooth(method = 'loess') +
-    geom_point(size = 3) 
-    
+    geom_point(size = 3) +
+    scale_x_continuous(labels = comma)
 }
 
+# Renders plotly chart
 output$chart3 <- renderPlotly({
   ggplotly(
-      distributionGraph(df3, input$C3.Major.Selected)
-  ) %>%
-    layout(legend = list(orientation = 'v'))
-})
-
-# stackGraph <- function(df, code){
-#   df %>%
-#     arrange(P25th) %>%
-#     mutate(P25th_50 = Median - P25th, Median_75 = P75th-Median) %>%
-#     plot_ly(x = ~Major, y = ~P25th, type = 'bar', name = '25th Percentile') %>%
-#     add_trace(y = ~P25th_50, name = '50th Percentile') %>%
-#     add_trace(y = ~Median_75, name = '75th Percentile') %>%
-#     layout(yaxis = list(title = 'Count'), barmode = 'stack')
-# }
-
-# ggplotly(distributionGraph(df3, c(1100,1501, 1101)))
-# ggplotly(stackGraph(df3, c(1100,1501, 1101)))
-
+    distributionGraph(df, input$C3.Major.Selected)
+  )}
+)

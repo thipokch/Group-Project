@@ -1,8 +1,7 @@
-
-major.panel <- function(){
+c1.major.panel <- function(){
   fluidPage(
-    selectizeInput('Category.Selected', 'Major Category', choices = NULL, multiple = FALSE),
-    selectizeInput('Major.Selected', 'Majors', choices = NULL, multiple = FALSE)
+    selectizeInput('C1.Category.Selected', 'Major Category', choices = NULL, multiple = FALSE),
+    selectizeInput('C1.Major.Selected', 'Majors', choices = NULL, multiple = FALSE)
   )
 }
 
